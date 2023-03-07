@@ -1,0 +1,61 @@
+[
+    {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "publisher": "Scribner",
+        "publication_date": "1925-04-10",
+        "isbn": "9780743273565",
+        "description": "The story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.",
+        "pages": [
+            {
+                "page_number": 1,
+                "formats": [
+                    {
+                        "content_type": "text",
+                        "content": "In my younger and more vulnerable years my father gave me some advice that Ive been turning over in my mind ever since."
+                    },
+                    {
+                        "content_type": "html",
+                        "content": "<p>In my younger and more vulnerable years my father gave me some advice that Ive been turning over in my mind ever since.</p>"
+                    }
+                ]
+            },
+            {
+                "page_number": 2,
+                "formats": [
+                    {
+                        "content_type": "text",
+                        "content": "Whenever you feel like criticizing anyone, he told me, just remember that all the people in this world havent had the advantages that youve had."
+                    },
+                    {
+                        "content_type": "html",
+                        "content": "<p>Whenever you feel like criticizing anyone, he told me, just remember that all the people in this world havent had the advantages that youve had.</p>"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "publisher": "J. B. Lippincott & Co.",
+        "publication_date": "1960-07-11",
+        "isbn": "9780446310789",
+        "description": "The story of young Jean Louise \"Scout\" Finch and her brother Jem, and their lawyer father Atticus Finch, who defends a black man accused of rape in the segregated South.",
+        "pages": [
+            {
+                "page_number": 1,
+                "formats": [
+                    {
+                        "content_type": "text",
+                        "content": "When he was nearly thirteen, my brother Jem got his arm badly broken at the elbow. "
+                    },
+                    {
+                        "content_type": "html",
+                        "content": "<p>When he was nearly thirteen, my brother Jem got his arm badly broken at the elbow. </p>"
+                    }
+                ]
+            }
+        ]
+    }
+]
