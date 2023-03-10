@@ -1,45 +1,72 @@
 from typing import Any
-from urllib import parse
-from models import LibraryDB
+from library_api.models import LibraryDB
 
 
-def index(environ) -> dict[str, Any]:
-    """Display the in-memory data to users."""
-    request_params = dict(parse.parse_qsl(parse.urlsplit(environ.get("RAW_URI")).query))
-
+# function for handling the index page
+def index() -> dict[str, Any]:
     context = {"status": "200 Ok"}
     context["data"] = "Hello, World!"
 
     return context
 
 
-def get_book_list(environ, library: LibraryDB):
-    """Use query parameters to transfer money from a user to another."""
-    if parse.parse_qsl(parse.urlsplit(environ.get("RAW_URI")).query) == "":
-        return {"error": "405 Method Not Allowed", "status": "405 Method Not Allowed"}
-    request_meta_query = dict(
-        parse.parse_qsl(parse.urlsplit(environ.get("RAW_URI")).query)
-    )
-    if not request_meta_query:
-        return {"error": "Query must be provided.", "status": "405 Method Not Allowed"}
+# function for getting a list of books
+def get_book_list(library: LibraryDB):
+    # get all the books from the library database
+    books = library.get_books()
+    if books:
+        context = {"status": "200 Ok"}
+        context["data"] = [dict(book) for book in books]
+    else:
+        context = {"status": "404 Ok"}
+        context["data"] = {"error": "The requested data could not be found"}
 
-    return library.get_books()
-
-
-# def get_book(self, query):
-#     results = []
-#     # search local library
-#     for book in self.library.books:
-#         if query in book.title or query in book.author:
-#             results.append({"title": book.title, "author": book.author})
-#     # search external book providers
-#     provider_results = self.book_provider.search_books(query)
-#     for result in provider_results:
-#         results.append({"title": result["title"], "author": result["author"]})
-#     return results
+    return context
 
 
-# def get_book_page(self, title, page_number, format):
-#     book = self.library.get_book_by_title(title)
-#     if book:
-#         return book.get_page(page_number, format)
+# function for getting a book by ID
+def get_book(environ, library: LibraryDB):
+    # get the path of the current request
+    path = environ.get("PATH_INFO")
+    # split the path into a list of strings
+    list_path = path.split("/")
+    # get the book ID from the end of the path
+    bookid = list_path[-1]
+    # get the book from the library database using the book ID
+    book = library.get_book(bookid)
+
+    if book:
+        row_dict = dict(book)
+        context = {"status": "200 Ok"}
+        context["data"] = row_dict
+    else:
+        context = {"status": "404 Ok"}
+        context["data"] = {"error": "The requested data could not be found"}
+
+    return context
+
+
+# function for getting a book page by book ID, page number, and format
+def get_book_page(environ, library: LibraryDB):
+    # get the path of the current request
+    path = environ.get("PATH_INFO")
+    # split the path into a list of strings
+    list_path = path.split("/")
+
+    # get the book ID, page number and format from the path
+    book_id = list_path[2]
+    page_number = list_path[4]
+    content_type = list_path[-1]
+
+    # get the pages from the library database using the book ID, page number, and content type
+    pages = library.get_pages(book_id, page_number, content_type)
+
+    if pages:
+        row_dict = dict(pages)
+        context = {"status": "200 Ok"}
+        context["data"] = row_dict["content"]
+    else:
+        context = {"status": "404 Ok"}
+        context["data"] = {"error": "The requested data could not be found"}
+
+    return context

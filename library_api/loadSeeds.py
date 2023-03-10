@@ -1,7 +1,7 @@
 import json
 from models import LibraryDB
 
-db = LibraryDB("library.db")
+db = LibraryDB("./library.db")
 
 data_json = {}
 file = open("./library_api/seeds/books.json")
