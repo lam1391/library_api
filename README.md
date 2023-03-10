@@ -1,5 +1,5 @@
 
-# Library API
+# Library API (without framework)
 
 Build a REST API which will allow our clients to consume the list of available books, as well as to read those books page by page in the desired formats.
 
